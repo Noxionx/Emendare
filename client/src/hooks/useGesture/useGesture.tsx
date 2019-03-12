@@ -3,7 +3,6 @@
  */
 import { useEffect, useState, useRef } from 'react'
 import Hammer from 'hammerjs'
-import { Callback } from 'diff'
 
 export const useGesture = (
   gestures: Array<{ effect: string; callback: Function }>,
@@ -22,7 +21,6 @@ export const useGesture = (
   useEffect(() => {
     if (hammerTime) {
       gestures.forEach((gesture: { effect: string; callback: any }) => {
-        console.log('hey')
         hammerTime.on(gesture.effect, gesture.callback)
       })
       return () => {

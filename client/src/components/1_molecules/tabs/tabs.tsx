@@ -65,7 +65,8 @@ export const Tabs = ({
   } = useTabs(tabsName, getIndexDefaultTab(tabsName)(defaultTab))
 
   const { ref }: any = useGesture([
-    { effect: 'panright', callback: selectNextTab }
+    { effect: 'panright', callback: selectPreviousTab },
+    { effect: 'panleft', callback: selectNextTab }
   ])
 
   React.useEffect(() => {

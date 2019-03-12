@@ -18,7 +18,6 @@ export const useTabs = (
   )
 
   const selectNextTab = () => {
-    console.log(selectedTab)
     if (selectedTab) {
       const targetIndex = tabs.indexOf(selectedTab) + 1
       if (targetIndex > tabs.length - 1) {
