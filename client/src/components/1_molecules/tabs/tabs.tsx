@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTabs } from '../../../hooks'
+import { useTabs, useGesture } from '../../../hooks'
 import { getIndexDefaultTab } from './helper'
 
 interface ITabsProps {
@@ -64,6 +64,10 @@ export const Tabs = ({
     selectPreviousTab
   } = useTabs(tabsName, getIndexDefaultTab(tabsName)(defaultTab))
 
+  const { ref }: any = useGesture([
+    { effect: 'panright', callback: selectNextTab }
+  ])
+
   React.useEffect(() => {
     if (location) {
       const url: any = new URLSearchParams(location.search)
@@ -90,11 +94,14 @@ export const Tabs = ({
 
   return (
     <TabsContext.Provider value={{ selectedTab, setSelectedTab } as any}>
-      <React.Fragment>{children}</React.Fragment>
+      <div ref={ref}>{children}</div>
     </TabsContext.Provider>
   )
 }
 
+/**
+ * Static components
+ */
 const Menu = React.memo(({ children, className }: ITabsMenuProps) => (
   <div className={`tabs ${className}`}>
     <ul>{children}</ul>

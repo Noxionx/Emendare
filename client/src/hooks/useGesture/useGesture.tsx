@@ -1,30 +1,36 @@
+/**
+ * Hook to use hammerJs
+ */
 import { useEffect, useState, useRef } from 'react'
 import Hammer from 'hammerjs'
+import { Callback } from 'diff'
 
-export const useGesture = ({
-  gestures,
-  option
-}: {
-  gestures: Array<{ effect: string; callback: Function }>
+export const useGesture = (
+  gestures: Array<{ effect: string; callback: Function }>,
   option?: any
-}) => {
-  const [hammerTime, setHammerTime] = useState()
-  const ref = useRef(new HTMLElement())
-
-  // useEffect(() => {
-  //   const node = ref
-  //   if (node instanceof HTMLElement) {
-  //     setHammerTime(new Hammer(node.current, option))
-  //   }
-  // }, [])
+) => {
+  const [hammerTime, setHammerTime] = useState<HammerManager>()
+  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    gestures.forEach((gesture: { effect: string; callback: Function }) => {
-      hammerTime.on(gesture.effect, () => gesture.callback())
-    })
-    return () => {
-      hammerTime.stop()
-      hammerTime.destroy()
+    const node = ref.current
+    if (node instanceof HTMLElement) {
+      setHammerTime(new Hammer(node, option))
     }
-  }, [gestures])
+  }, [])
+
+  useEffect(() => {
+    if (hammerTime) {
+      gestures.forEach((gesture: { effect: string; callback: any }) => {
+        console.log('hey')
+        hammerTime.on(gesture.effect, gesture.callback)
+      })
+      return () => {
+        hammerTime.stop(true)
+        hammerTime.destroy()
+      }
+    }
+  }, [hammerTime])
+
+  return { ref }
 }
