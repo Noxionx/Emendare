@@ -75,6 +75,7 @@
     "@types/react-json-tree": "^0.6.11",
     "@types/react-router-dom": "4.3.1",
     "@types/socket.io-client": "1.4.32",
+    "@types/hammerjs": "2.0.35",
     "babel-eslint": "9.0.0",
     "codecov": "3.1.0",
     "cypress": "3.1.5",
@@ -100,6 +101,7 @@
     "tslint-react-hooks": "^1.1.0",
     "typedoc": "0.14.2",
     "typescript": "3.3.3",
-    "react-testing-library": "6.0.0"
+    "react-testing-library": "6.0.0",
+    "hammerjs": "2.0.8"
   }
 }
